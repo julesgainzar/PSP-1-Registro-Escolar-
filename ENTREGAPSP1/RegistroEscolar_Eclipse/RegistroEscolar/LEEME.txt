@@ -1,0 +1,33 @@
+REGISTRO ESCOLAR 1.2 - proyecto Maven para Eclipse (con Checkstyle)
+====================================================================
+Requisitos: Eclipse IDE for Java Developers (ya trae Maven/m2e) y JDK 21.
+Usuario: Rectoria   Contraseña: admin
+
+ABRIR Y EJECUTAR
+1. Descomprime el zip.
+2. Eclipse > File > Import > Maven > Existing Maven Projects > carpeta RegistroEscolar > Finish.
+   (la primera vez descarga JavaFX y el driver SQLite; necesita internet)
+3. Clic derecho en src/main/java > registroescolar1.pkg2 > Lanzador.java
+   > Run As > Java Application.
+   Usa "Lanzador" y no "RegistroEscolar12": con JavaFX desde Maven, la clase que
+   hereda de Application falla con "Faltan componentes de JavaFX".
+4. La base GESTIONESCOLAR.db está en la raíz del proyecto (es la carpeta de trabajo
+   de Eclipse), ya con migracion.sql aplicada.
+
+CHECKSTYLE
+1. Help > Eclipse Marketplace > buscar "Checkstyle" > instalar "Checkstyle Plug-in"
+   y reiniciar Eclipse.
+2. Clic derecho en el proyecto > Checkstyle > Activate Checkstyle.
+   Usa checkstyle.xml (ya configurado en .checkstyle). Los avisos salen en la
+   vista Problems y subrayados en el código.
+3. Por consola también funciona:   mvn checkstyle:check
+El código actual pasa todas las reglas sin avisos.
+
+ESTRUCTURA
+src/main/java       -> modelo, controlador, registroescolar1.pkg2 (Lanzador = arranque)
+src/main/resources  -> vista (FXML) e imagenes
+GESTIONESCOLAR.db   -> base SQLite
+migracion.sql       -> ya aplicada a la base incluida (déjala por si usas otra copia)
+
+El código lee la base con RegistroDAO (modelo/). Para usar otra ruta de base:
+Run Configurations > Arguments > VM arguments:  -Dregistro.db=C:/ruta/GESTIONESCOLAR.db
